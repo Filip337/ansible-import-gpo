@@ -4,13 +4,16 @@
    gather_facts: false
 
    tasks:
-     - name: Import GPO PS module
-       custom_win_gpo_import:
-         backup_path:
-         gpo_name:
-         domain:
-       register: result
-
-
-       
+    - name: Import GPO
+      win_gpo_import:
+        backup_path: "c:\\adm\\GPO-bkp"
+        gpo_name: "Custom GPO"
+        domain: "lab.local"
+      register: result
+    - name: Show results back
+      ansible.builtin.debug:
+        var: result
+    - name: Show GPO ID
+      ansible.builtin.debug:
+        msg: "Imported GPO ID is {{ result.gpo_id }}"
 
