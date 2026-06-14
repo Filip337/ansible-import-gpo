@@ -9,7 +9,7 @@ $spec = @{
     }
 }
 
-$module = [Ansible.Basic.AnsibleModule]::Create($args; $spec)
+$module = [Ansible.Basic.AnsibleModule]::Create($args, $spec)
 
 #required in playbook
 $backupPath = $module.Params.backup_path
