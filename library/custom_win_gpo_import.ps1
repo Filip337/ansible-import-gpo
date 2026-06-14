@@ -18,9 +18,9 @@ $domain     = $module.Params.domain
 
 #module logic
 #get all available ps module on server
-$ModuleInstalled = Get-Module -ListAvailable  
+$PsModuleInstalled = Get-Module -ListAvailable  
 
-if ($ModuleInstalled.Name -contains "ActiveDirectory") {  
+if ($PsModuleInstalled.Name -contains "ActiveDirectory") {  
 
     #if AD module present, import GP module
     Import-Module GroupPolicy
@@ -32,7 +32,7 @@ if ($ModuleInstalled.Name -contains "ActiveDirectory") {
         $module.Result.gpo_id  = $existingGPO.Id.ToString()
         $module.Result.msg     = "GPO '$gpoName' already exists"
         $module.ExitJson()
-    }
+    }else{
     
     #if does not exist, import GPO, get GPO ID and message
     $importedGPO = Import-GPO -BackupGpoName $gpoName -Path $backupPath -TargetName $gpoName -CreateIfNeeded -Domain $domain
@@ -40,7 +40,7 @@ if ($ModuleInstalled.Name -contains "ActiveDirectory") {
     $module.Result.gpo_id  = $importedGPO.Id.ToString()
     $module.Result.msg     = "GPO '$gpoName' imported with succes"
     $module.ExitJson()
-
+    }
 } else {
     
     #AD moddule not present on mashine
