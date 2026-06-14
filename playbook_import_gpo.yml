@@ -1,6 +1,6 @@
 ---
  - name: Import GPO backup playbook
-   hosts: dc
+   hosts: all
    gather_facts: false
 
    tasks:
