@@ -13,7 +13,4 @@
     - name: Show results back
       ansible.builtin.debug:
         var: result
-    - name: Show GPO ID
-      ansible.builtin.debug:
-        msg: "Imported GPO ID is {{ result.gpo_id }}"
 
