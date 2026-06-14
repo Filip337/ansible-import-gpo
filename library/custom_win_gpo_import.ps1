@@ -3,9 +3,9 @@
 
 $spec = @{
     options = @{
-        domain      = @{type="str"; required=$true}
+        gpo_name    = @{type="str"; required=$true}
         backup_path = @{type="str"; required=$true}
-        gpo_name    = @{type="str"; required=$false; default=$null}
+        domain      = @{type="str"; required=$false; default=$null}
     }
 }
 
@@ -17,7 +17,7 @@ $gpoName    = $module.Params.gpo_name
 #optional in playbook
 $domain     = $module.Params.domain
 
-#logic
+#module logic
 #get all available ps module on server
 $ModuleInstalled = Get-Module -ListAvailable  
 
