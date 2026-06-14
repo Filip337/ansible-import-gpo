@@ -5,7 +5,7 @@ $spec = @{
     options = @{
         domain      = @{type="str"; required=$true}
         backup_path = @{type="str"; required=$true}
-        gpo_nam     = @{type="str"; required=$false; default=$null}
+        gpo_name    = @{type="str"; required=$false; default=$null}
     }
 }
 
