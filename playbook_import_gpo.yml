@@ -5,7 +5,7 @@
 
    tasks:
     - name: Import GPO
-      win_gpo_import:
+      custom_win_gpo_import:
         backup_path: "c:\\adm\\GPO-bkp"
         gpo_name: "Custom GPO"
         domain: "lab.local"
