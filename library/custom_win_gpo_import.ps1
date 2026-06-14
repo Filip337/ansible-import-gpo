@@ -17,7 +17,6 @@ $gpoName    = $module.Params.gpo_name
 #optional in playbook
 $domain     = $module.Params.domain
 
-
 #logic
 #get all available ps module on server
 $ModuleInstalled = Get-Module -ListAvailable  
@@ -27,18 +26,17 @@ if ($ModuleInstalled.Name -contains "ActiveDirectory") {
     #if AD module present, import GP module
     Import-Module GroupPolicy
     
-    #check if GPO exist with specified name
+    #check if GPO exist, if exist do not import
     $existingGPO = Get-GPO -Name $gpoName -Domain $domain -ErrorAction SilentlyContinue
-
     if ($existingGPO) {
         $module.Result.changed = $false
         $module.Result.gpo_id  = $existingGPO.Id.ToString()
         $module.Result.msg     = "GPO '$gpoName' already exists"
         $module.ExitJson()
     }
-
+    
+    #if does not exist, import GPO, get GPO ID and message
     $importedGPO = Import-GPO -BackupGpoName $gpoName -Path $backupPath -TargetName $gpoName -CreateIfNeeded -Domain $domain
-
     $module.Result.changed = $true
     $module.Result.gpo_id  = $importedGPO.Id.ToString()
     $module.Result.msg     = "GPO '$gpoName' imported with succes"
@@ -46,7 +44,8 @@ if ($ModuleInstalled.Name -contains "ActiveDirectory") {
 
 } else {
     
+    #AD moddule not present on mashine
     $module.Result.changed = $false
-    $module.Result.msg     = "ActiveDirectory module not installed on this host"
+    $module.Result.msg     = "AD module not installed"
     $module.ExitJson()
 }
