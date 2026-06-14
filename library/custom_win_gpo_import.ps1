@@ -4,7 +4,7 @@
 $spec = @{
     options = @{
         domain   = @{type="str"; required=$true}
-        bkp_path = @{type="str"; required=$true}
+        backup_path = @{type="str"; required=$true}
         gpo_nam  = @{type="str"; required=$false; default=$null}
     }
 }
@@ -16,3 +16,6 @@ $backupPath = $module.Params.backup_path
 $gpoName    = $module.Params.gpo_name
 #optional in playbook
 $domain     = $module.Params.domain
+
+
+#logic

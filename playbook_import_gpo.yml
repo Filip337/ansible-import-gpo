@@ -6,5 +6,11 @@
    tasks:
      - name: Import GPO PS module
        custom_win_gpo_import:
-         vars....
+         backup_path:
+         gpo_name:
+         domain:
+       register: result
+
+
+       
 
