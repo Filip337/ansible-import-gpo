@@ -1,8 +1,6 @@
 # Import Group Policy Object
 Custom Ansible module written in PowerShell that imports a Group Policy Object  (GPO) backup into Active Directory
 
-
-
 ## Usage
 
 `ansible-playbook playbook_import_gpo.yml --ask-vault-pass`
@@ -29,3 +27,6 @@ ansible_password={{ windows_user_password }}
 
 > Make sure backup GPO exist in specified folder, and path and domain are set.
 
+# v2
+
+Adding ansible modules for test
