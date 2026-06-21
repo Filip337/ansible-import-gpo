@@ -18,6 +18,7 @@ $domain     = $module.Params.domain
 
 #module logic
 #get all available ps module on server
+try {
 $PsModuleInstalled = Get-Module -ListAvailable  
 
 if ($PsModuleInstalled.Name -contains "ActiveDirectory") {  
@@ -47,4 +48,7 @@ if ($PsModuleInstalled.Name -contains "ActiveDirectory") {
     $module.Result.changed = $false
     $module.Result.msg     = "AD module not installed"
     $module.ExitJson()
+}
+} catch {
+    $module.FailJson("Fatal error while executing module $($_.Exception.Message)")
 }
