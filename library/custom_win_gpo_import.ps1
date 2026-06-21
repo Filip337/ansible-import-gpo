@@ -33,7 +33,7 @@ if ($PsModuleInstalled.Name -contains "ActiveDirectory") {
         $module.Result.gpo_id  = $existingGPO.Id.ToString()
         $module.Result.msg     = "GPO '$gpoName' already exists"
         $module.ExitJson()
-    }else{
+    } else {
     
     #if does not exist, import GPO, get GPO ID and message
     $importedGPO = Import-GPO -BackupGpoName $gpoName -Path $backupPath -TargetName $gpoName -CreateIfNeeded -Domain $domain
@@ -50,5 +50,5 @@ if ($PsModuleInstalled.Name -contains "ActiveDirectory") {
     $module.ExitJson()
 }
 } catch {
-    $module.FailJson("Fatal error while executing module $($_.Exception.Message)")
+    $module.FailJson("Fatal error while executing module: $($_.Exception.Message)")
 }
