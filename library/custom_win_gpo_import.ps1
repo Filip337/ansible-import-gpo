@@ -33,12 +33,12 @@ if ($PsModuleInstalled.Name -contains "ActiveDirectory") {
     if ($existingGPO -and $force -like "false") {
         $module.Result.changed = $false
         $module.Result.gpo_id  = $existingGPO.Id.ToString()
-        $module.Result.msg     = "GPO '$gpoName' already exists. Set force to $force in playbook to import it anyway"
+        $module.Result.msg     = "GPO '$gpoName' already exists. Set force to true in playbook to import it anyway"
         $module.ExitJson()
     } if ($existingGPO -and $force -like "true") {
           $module.Result.changed = $true
           $module.Result.gpo_id  = $existingGPO.Id.ToString()
-          $module.Result.msg     = "GPO '$gpoName' overwriten. Force is set to $force in playbook"
+          $module.Result.msg     = "GPO '$gpoName' overwriten. Force is set to true in playbook"
           $module.ExitJson()
     } else {
     #if does not exist, import GPO, get GPO ID and message

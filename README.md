@@ -28,12 +28,12 @@ ansible_user={{ windows_user }}
 ansible_password={{ windows_user_password }}
 ```
 #### Note:
->If GPO with same name already exist, will not overwrite the GPO if force is set to true. 
+>If GPO with same name already exist, will not overwrite the GPO if force is not set to true. 
 **Default value is false**.
 
 >Active Directory PowerShell Module must be present on server
 
-> Make sure backup GPO exist in specified folder, and path and domain are set.
+>Make sure backup GPO exist in specified folder, and path and domain are set.
 
 # v2
 
