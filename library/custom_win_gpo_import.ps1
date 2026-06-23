@@ -23,21 +23,22 @@ $force      = $module.Params.force
 try {
 $PsModuleInstalled = Get-Module -ListAvailable  
 
-if ($PsModuleInstalled.Name -contains "ActiveDirectory") {  
+if ($PsModuleInstalled.Name -contains "GroupPolicy") {  
 
     #if AD module present, import GP module
     Import-Module GroupPolicy
     
     #check if GPO exist, if exist do not import
     $existingGPO = Get-GPO -Name $gpoName -Domain $domain -ErrorAction SilentlyContinue
-    if ($existingGPO -and $force -like "false") {
+    if ($existingGPO.displayname -gt 0 -and $force -like "false") {
         $module.Result.changed = $false
         $module.Result.gpo_id  = $existingGPO.Id.ToString()
         $module.Result.msg     = "GPO '$gpoName' already exists. Set force to true in playbook to import it anyway"
         $module.ExitJson()
-    } if ($existingGPO -and $force -like "true") {
+    } if ($existingGPO.displayname -gt 0 -and $force -like "true") {
+          $importedGPO = Import-GPO -BackupGpoName $gpoName -Path $backupPath -TargetName $gpoName -CreateIfNeeded -Domain $domain
           $module.Result.changed = $true
-          $module.Result.gpo_id  = $existingGPO.Id.ToString()
+          $module.Result.gpo_id  = $importedGPO.Id.ToString()
           $module.Result.msg     = "GPO '$gpoName' overwriten. Force is set to true in playbook"
           $module.ExitJson()
     } else {
@@ -51,7 +52,7 @@ if ($PsModuleInstalled.Name -contains "ActiveDirectory") {
 } else {
     #AD moddule not present on mashine
     $module.Result.changed = $false
-    $module.Result.msg     = "AD module not installed"
+    $module.Result.msg     = "GroupPolicy module not installed"
     $module.ExitJson()
 }
 } catch {
